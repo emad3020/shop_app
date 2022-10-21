@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/models/toast_type.dart';
 
 Widget defaultTextFormField({
   required TextEditingController controller,
@@ -84,4 +86,15 @@ void navigateAndFinish(context, destination) => Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => destination),
       (route) => false,
+    );
+
+void showToast({required String message, ToastType type = ToastType.NORMAL}) =>
+    Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_LONG,
+      timeInSecForIosWeb: 5,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: ToastTypeFactory(type: type).getColor(),
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
