@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shop_app/models/bording_model.dart';
 import 'package:shop_app/modules/login/login_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
+import 'package:shop_app/shared/components/constants.dart';
+import 'package:shop_app/shared/network/local/cache_helper.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -40,14 +42,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
       appBar: AppBar(
         actions: [
           defaultTextButton(
-              onPressed: () {
-                navigateAndFinish(
-                  context,
-                  LoginScreen(),
-                );
-              },
-              title: 'skip',
-              textColor: defaultColor)
+              onPressed: _submit, title: 'skip', textColor: defaultColor)
         ],
       ),
       body: Padding(
@@ -93,10 +88,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
               FloatingActionButton(
                 onPressed: () {
                   if (isLastPage) {
-                    navigateAndFinish(
-                      context,
-                      LoginScreen(),
-                    );
+                    _submit();
                   } else {
                     pagerController.nextPage(
                         duration: Duration(milliseconds: 750),
@@ -139,4 +131,15 @@ class _BoardingScreenState extends State<BoardingScreen> {
           SizedBox(height: 30.0),
         ],
       );
+
+  void _submit() {
+    CacheHelper.setData(key: IS_FIRST_TIME, value: false).then((value) {
+      if (value == true) {
+        navigateAndFinish(
+          context,
+          LoginScreen(),
+        );
+      }
+    });
+  }
 }
