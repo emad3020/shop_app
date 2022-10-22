@@ -18,18 +18,18 @@ void main() async {
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
   await CacheHelper.init();
-  bool isFirstTime = CacheHelper.getData(key: IS_FIRST_TIME);
+  bool? isFirstTime = CacheHelper.getData(key: IS_FIRST_TIME);
   Widget? startWidget;
-  String userToken = CacheHelper.getData(key: USER_TOKEN);
+  String? userToken = CacheHelper.getData(key: USER_TOKEN);
 
-  if (!isFirstTime) {
-    if (userToken.isNotEmpty)
+  if (isFirstTime != null) {
+    if (userToken != null)
       startWidget = ShopLayout();
     else {
       startWidget = LoginScreen();
     }
   } else {
-    BoardingScreen();
+    startWidget = BoardingScreen();
   }
   runApp(MyApp(
     startWidget: startWidget,
@@ -37,7 +37,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final bool _isDark = CacheHelper.getData(key: IS_DARK);
+  final bool? _isDark = CacheHelper.getData(key: IS_DARK);
 
   final Widget? startWidget;
 
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           darkTheme: darkTheme,
           theme: lightTheme,
-          themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
+          themeMode: _isDark == true ? ThemeMode.dark : ThemeMode.light,
           home: startWidget,
         ),
       ),
