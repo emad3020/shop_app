@@ -98,3 +98,5 @@ void showToast({required String message, ToastType type = ToastType.NORMAL}) =>
       textColor: Colors.white,
       fontSize: 16.0,
     );
+
+Widget loadingBuilder() => Center(child: CircularProgressIndicator());
