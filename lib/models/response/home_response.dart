@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class HomeResponse {
   bool? status;
   HomeDataModel? data;

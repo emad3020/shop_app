@@ -100,3 +100,12 @@ void showToast({required String message, ToastType type = ToastType.NORMAL}) =>
     );
 
 Widget loadingBuilder() => Center(child: CircularProgressIndicator());
+
+Widget listDivider() => Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Container(
+        height: 1,
+        width: double.infinity,
+        color: Colors.grey[300],
+      ),
+    );

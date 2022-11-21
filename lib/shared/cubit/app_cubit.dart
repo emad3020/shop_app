@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop_app/models/response/categories_response.dart';
 import 'package:shop_app/models/response/home_response.dart';
 import 'package:shop_app/modules/categories/categories_screen.dart';
 import 'package:shop_app/modules/favorites/favorites_screen.dart';
@@ -15,6 +16,7 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit? _instance;
   int currentIndex = 0;
   HomeResponse? homeResponse;
+  CategoriesResponse? categoriesResponse;
   List<Widget> bottomScreens = [
     ProductsScreen(),
     CategoriesScreen(),
@@ -35,7 +37,6 @@ class AppCubit extends Cubit<AppStates> {
     emit(LoadingStates());
     DioHelper.getData(url: HOME, query: null).then((value) {
       homeResponse = HomeResponse.fromJson(value?.data);
-      log('---> ${homeResponse?.data?.banners[0].image}');
       emit(HomeSuccessStates());
     }).catchError((error) {
       log(error.toString());
@@ -45,7 +46,10 @@ class AppCubit extends Cubit<AppStates> {
 
   void loadCategories() {
     DioHelper.getData(url: CATEGORIES, query: null).then((value) {
-      log('Categories---> ${value}');
+      categoriesResponse = CategoriesResponse.fromJson(value?.data);
+      emit(CategoriesSuccessStates());
+    }).catchError((error) {
+      emit(CategoriesFailureStates());
     });
   }
 }
