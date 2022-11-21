@@ -58,7 +58,7 @@ class ProductsScreen extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 1.0,
                 crossAxisSpacing: 1.0,
-                childAspectRatio: 1 / 1.54,
+                childAspectRatio: 1 / 1.6,
                 children: List.generate(
                   products?.data?.products.length ?? 0,
                   (index) => _buildGridProduct(products?.data?.products[index]),

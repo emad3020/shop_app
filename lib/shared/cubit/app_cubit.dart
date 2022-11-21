@@ -42,4 +42,10 @@ class AppCubit extends Cubit<AppStates> {
       emit(HomeFailureStates());
     });
   }
+
+  void loadCategories() {
+    DioHelper.getData(url: CATEGORIES, query: null).then((value) {
+      log('Categories---> ${value}');
+    });
+  }
 }

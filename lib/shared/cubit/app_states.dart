@@ -9,3 +9,7 @@ class LoadingStates extends AppStates {}
 class HomeSuccessStates extends AppStates {}
 
 class HomeFailureStates extends AppStates {}
+
+class CategoriesSuccessStates extends AppStates {}
+
+class CategoriesFailureStates extends AppStates {}
